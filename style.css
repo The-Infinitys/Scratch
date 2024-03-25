@@ -2,17 +2,22 @@
   --scratch_color: #855cd6;
 }
 
+/*カラーテーマの設定*/
+:root {
+  --background: white;
+  --text: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: black;
+    --text: white;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
-}
-
-header {
-  position: fixed;
-  width: 100%;
-  height: 10%;
-  background-color: var(--scratch_color);
-  
 }
 
 @keyframes rainbow {
@@ -44,14 +49,46 @@ header {
     color: #ff0000;
   }
 }
-
-#The_Infinitys {
-  border: 2px solid black;
-}
-
 .rainbow-text {
   animation-name: rainbow;
   animation-duration: 5s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  height: min(10vh,15vw);
+  background-color: var(--scratch_color);
+  display: flex;
+  align-items: flex-end;
+}
+
+
+#The_Infinitys {
+  -webkit-text-stroke: 1px var(--background);
+  font-size: min(7vh,8vw);
+}
+
+header>h1{
+  bottom:0;
+  font-size:min(5vh,5vw);
+  color:var(--background);
+}
+#SCRATCH {
+  aspect-ratio: auto;
+  width: min(40vw,30vh);
+}
+
+#introduce{
+  padding-top:min(10vh,15vw);
+  color: var(--text);
+  background-color:var(--background);
+}
+
+footer{
+  text-align: center;
+  width:100%;
+  height:10%;
 }
