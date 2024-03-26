@@ -81,12 +81,18 @@ header>h1{
   width: min(40vw,30vh);
 }
 
-#introduce{
+#title{
   padding-top:min(10vh,15vw);
   color: var(--text);
   background-color:var(--background);
+  font-size:4vw ;
 }
-
+#title>img{
+  position: relative;
+  width: min(100vw,40vh);
+  transform: translate(-50%,0);
+  left:50%;
+}
 footer{
   text-align: center;
   width:100%;
