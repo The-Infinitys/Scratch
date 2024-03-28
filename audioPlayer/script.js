@@ -1,7 +1,5 @@
 let audioFile = document.querySelector("#audioFile");
-let imageFile = document.querySelector("#imageFile");
 let buttom = document.querySelector("button");
-let image = document.querySelector("img");
 let audio = document.querySelector("audio");
 duration = document.querySelector("p");
 //ファイルの読み込み
@@ -10,15 +8,6 @@ audioFile.addEventListener("change", (e) => {
   const blobURL = URL.createObjectURL(file);
   audio.src = blobURL;
   audio.addEventListener("load", function () {
-    URL.revokeObjectURL(blobURL);
-  });
-});
-
-imageFile.addEventListener("change", (e) => {
-  const file = e.target.files[0];
-  const blobURL = URL.createObjectURL(file);
-  image.src = blobURL;
-  image.addEventListener("load", function () {
     URL.revokeObjectURL(blobURL);
   });
 });
@@ -33,7 +22,10 @@ function start() {
   audio.play();
   //main
 }
-function exportSB3(audio64, image64, data) {}
+//console.log(fetch("./exportFrame/project.json"));
+function exportSB3(audio64, image64, data) {
+  
+}
 //音声の再生スクリプト
 let FFT_SIZE = 64;
 let RATE = 1;
