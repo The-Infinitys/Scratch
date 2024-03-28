@@ -33,9 +33,9 @@ function b64_to_utf8(str) {
 let FFT_SIZE = 64;
 let RATE = 1;
 function exportSB3(data) {
-  let text="";
-  for (let i=0;i<data.length;++i){
-    text+=data[i].toString()+"\n";
+  let text = "";
+  for (let i = 0; i < data.length; ++i) {
+    text += data[i].toString() + "\n";
   }
   const blob = new Blob([text], { type: "text/plain" });
   const aTag = document.querySelector("#download");
@@ -105,9 +105,16 @@ function init() {
   // --------------------------------
 
   let isCheck = 0;
+  let before = 0;
+  let tickCount = 0;
   loop();
-  /** 描画します */
+  //描画と記録
+  setInterval(() => {
+    document.querySelector("h3").innerHTML = "FPS: "+tickCount.toString();
+    tickCount = 0;
+  }, 1000);
   function loop() {
+    ++tickCount;
     if (audio.currentTime < audio.duration) {
       requestAnimationFrame(loop);
     } else {
@@ -115,7 +122,7 @@ function init() {
     }
     duration.innerHTML =
       (
-        Math.round((audio.currentTime / audio.duration) * 100000) / 1000
+        Math.round((audio.currentTime / audio.duration) * 1000) / 10
       ).toString() + "% finished.";
     document.querySelector("h6").innerHTML = exportdata.length;
     // 波形データを格納する配列の生成
@@ -123,10 +130,13 @@ function init() {
     // それぞれの周波数の振幅を取得
     nodeAnalyser.getByteFrequencyData(freqByteData);
     // 高さの更新
-    isCheck = (isCheck + 1) % (30 / RATE);
+    isCheck = audio.currentTime - before > 1 / RATE;
+    if (isCheck) {
+      before = audio.currentTime;
+    }
     for (let i = 0; i < freqByteData.length; i++) {
       const freqSum = freqByteData[i];
-      if (isCheck == 0) {
+      if (isCheck) {
         exportdata.push(freqSum);
       }
       // 値は256段階で取得できるので正規化して 0.0 〜 1.0 の値にする
