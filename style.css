@@ -75,7 +75,7 @@ header {
 header>h1 {
   bottom: 0;
   font-size: min(5vh, 5vw);
-  color: var(--background);
+  color: var(--text);
 }
 
 #SCRATCH {
