@@ -31,7 +31,7 @@ function b64_to_utf8(str) {
 
 let FFT_SIZE = 64;
 let RATE = 1;
-function exportSB3(audio64, image64, data) {
+function exportSB3(data) {
   project_json = {
     targets: [
       {
@@ -663,7 +663,7 @@ function init() {
     if (audio.currentTime < audio.duration) {
       requestAnimationFrame(loop);
     } else {
-      exportSB3(audio.src, image.src, exportdata);
+      exportSB3(exportdata);
     }
     duration.innerHTML =
       (
