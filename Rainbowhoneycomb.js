@@ -120,5 +120,5 @@ function drawhoneycomb() {
   }
   tickcount += 1;
 }
-var framelate = 60;
-setInterval(drawhoneycomb, 1 / framelate);
+var framerate = 60;
+setInterval(drawhoneycomb, 1 / framerate);

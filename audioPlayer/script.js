@@ -23,24 +23,25 @@ function start() {
 }
 
 /** フーリエ変換を行う分割数。2の乗数でなくてはならない */
-let FFT_SIZE = 64;
-let RATE = 30;
+let FFT_SIZE = 32;
+let RATE = 1;
 var list = [];
 const setting = {
   rate: document.querySelector("#setting_rate"),
   fps: document.querySelector("#setting_FPS"),
 };
 function setFPS() {
-  RATE = setting.fps.value;
+  RATE = parseInt(setting.fps.value);
 }
 function setRate() {
-  FFT_SIZE = setting.rate.value;
+  FFT_SIZE = parseInt(setting.rate.value);
 }
 // HTML要素
 const containerElement = document.querySelector(".container");
 
 const audioElement = document.querySelector("#audio");
 audioElement.addEventListener("play", init);
+audioVisualData=[];
 /**
  * サウンドを再生します
  */
