@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>audio player on scratch</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>Audio Player on Scratch</h1>
-  <input type="file" accept="audio/*" />
-  <audio src="" id="audio"></audio>
-  <button onclick="start()">start!</button>
-</body>
-<script src="script.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>audio player on scratch</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="controll">
+      <h1>Audio Player on Scratch</h1>
+      <input type="file" accept="audio/mp3" />
+      <audio src="" id="audio"></audio>
+      <select id="setting_FPS" onchange="setFPS()">
+        <option value="1">FPS:1</option>
+        <option value="2">FPS:2</option>
+        <option value="3">FPS:3</option>
+        <option value="5">FPS:5</option>
+        <option value="6">FPS:6</option>
+        <option value="10">FPS:10</option>
+        <option value="15">FPS:15</option>
+        <option value="30">FPS:30</option>
+      </select>
+      <select id="setting_rate" onchange="setRate()">
+        <option value="4">late:4</option>
+        <option value="8">late:8</option>
+        <option value="16">late:16</option>
+        <option value="32">late:32</option>
+        <option value="64">late:64</option>
+      </select>
+      <button onclick="start()">start!</button>
+    </div>
+    <div class="container"></div>
+  </body>
+  <script src="script.js"></script>
 </html>
