@@ -97,30 +97,28 @@ function init() {
   // 繰り返し処理
   // --------------------------------
 
-  let time = 0;
-  let data = 0;
   let isCheck = 0;
-  let data = [];
+  let exportdata = [];
   loop();
   /** 描画します */
   function loop() {
     if (audio.currentTime < audio.duration) {
       requestAnimationFrame(loop);
     } else {
-      exportSB3(audio.src, image.src, data);
+      exportSB3(audio.src, image.src, exportdata);
     }
     duration.innerHTML =
       (
-        Math.round((audio.currentTime / audio.duration) * 10000) / 10000
-      ).toString() + "%";
+        Math.round((audio.currentTime / audio.duration) * 100000) / 1000
+      ).toString()+"% finished.";
     // 波形データを格納する配列の生成
     const freqByteData = new Uint8Array(FFT_SIZE / 2);
     // それぞれの周波数の振幅を取得
     nodeAnalyser.getByteFrequencyData(freqByteData);
-    isCheck = (isCheck + 1) % (30 / FPS);
+    isCheck = (isCheck + 1) % (30 / RATE);
     if (isCheck == 0) {
       for (let i = 0; i < freqByteData.length; ++i) {
-        data.append(freqByteData[i]);
+        exportdata.append(freqByteData[i]);
       }
     }
     // 高さの更新
