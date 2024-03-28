@@ -2,6 +2,7 @@ let audioFile = document.querySelector("#audioFile");
 let buttom = document.querySelector("button");
 let audio = document.querySelector("audio");
 duration = document.querySelector("p");
+exportdata = [];
 //ファイルの読み込み
 audioFile.addEventListener("change", (e) => {
   const file = e.target.files[0];
@@ -583,16 +584,15 @@ function exportSB3(data) {
     meta: {
       semver: "3.0.0",
       vm: "2.3.0",
-      agent:
-        "This was made by @The_Infinitys!",
+      agent: "This was made by @The_Infinitys!",
     },
   };
-  project_json.targets[0].lists["ikRGJ+P?T4xvGB5aF#I."][1]=data;
-  project_json.targets[0].variables["3%QhHk9WHzY*`?)RZyTK"][1]=FFT_SIZE/2;
-  project_json.targets[0].variables["QSr)BEEbLIbYiYo5YQEG"][1]=RATE;
-  project_json=JSON.stringify(project_json);
-  project_json="data:text/plain,"+project_json;
-  document.querySelector("#download").href=project_json;
+  project_json.targets[0].lists["ikRGJ+P?T4xvGB5aF#I."][1] = data;
+  project_json.targets[0].variables["3%QhHk9WHzY*`?)RZyTK"][1] = FFT_SIZE / 2;
+  project_json.targets[0].variables["QSr)BEEbLIbYiYo5YQEG"][1] = RATE;
+  project_json = JSON.stringify(project_json);
+  project_json = "data:text/plain," + project_json;
+  document.querySelector("#download").href = project_json;
 }
 //音声の再生スクリプト
 var list = [];
@@ -656,7 +656,6 @@ function init() {
   // --------------------------------
 
   let isCheck = 0;
-  let exportdata = [];
   loop();
   /** 描画します */
   function loop() {
@@ -669,19 +668,18 @@ function init() {
       (
         Math.round((audio.currentTime / audio.duration) * 100000) / 1000
       ).toString() + "% finished.";
+    document.querySelector("h6").innerHTML = exportdata.length;
     // 波形データを格納する配列の生成
     const freqByteData = new Uint8Array(FFT_SIZE / 2);
     // それぞれの周波数の振幅を取得
     nodeAnalyser.getByteFrequencyData(freqByteData);
-    isCheck = (isCheck + 1) % (30 / RATE);
-    if (isCheck == 0) {
-      for (let i = 0; i < freqByteData.length; ++i) {
-        exportdata.append(freqByteData[i]);
-      }
-    }
     // 高さの更新
+    isCheck = (isCheck + 1) % (30 / RATE);
     for (let i = 0; i < freqByteData.length; i++) {
       const freqSum = freqByteData[i];
+      if (isCheck == 0) {
+        exportdata.push(freqSum);
+      }
       // 値は256段階で取得できるので正規化して 0.0 〜 1.0 の値にする
       const scale = freqSum / 256;
       // Y軸のスケールを変更
