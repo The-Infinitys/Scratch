@@ -96,7 +96,7 @@ div{
 #title>img {
   position: relative;
   width: min(100vw, 40vh);
-  transform: transrate(-50%, 0);
+  transform: translate(-50%, 0);
   left: 50%;
 }
 
