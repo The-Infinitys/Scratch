@@ -1,12 +1,24 @@
-let input = document.querySelector("input");
+let audioFile = document.querySelector("#audioFile");
+let imageFile = document.querySelector("#imageFile");
 let buttom = document.querySelector("button");
+let image = document.querySelector("img");
 let audio = document.querySelector("audio");
+duration = document.querySelector("p");
 //ファイルの読み込み
-input.addEventListener("change", (e) => {
+audioFile.addEventListener("change", (e) => {
   const file = e.target.files[0];
   const blobURL = URL.createObjectURL(file);
   audio.src = blobURL;
   audio.addEventListener("load", function () {
+    URL.revokeObjectURL(blobURL);
+  });
+});
+
+imageFile.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  const blobURL = URL.createObjectURL(file);
+  image.src = blobURL;
+  image.addEventListener("load", function () {
     URL.revokeObjectURL(blobURL);
   });
 });
@@ -21,9 +33,9 @@ function start() {
   audio.play();
   //main
 }
-
-/** フーリエ変換を行う分割数。2の乗数でなくてはならない */
-let FFT_SIZE = 32;
+function exportSB3(audio64, image64, data) {}
+//音声の再生スクリプト
+let FFT_SIZE = 64;
 let RATE = 1;
 var list = [];
 const setting = {
@@ -41,7 +53,7 @@ const containerElement = document.querySelector(".container");
 
 const audioElement = document.querySelector("#audio");
 audioElement.addEventListener("play", init);
-audioVisualData=[];
+audioVisualData = [];
 /**
  * サウンドを再生します
  */
@@ -49,8 +61,8 @@ function init() {
   // -------------------------------------
   // HTML要素の初期化
   // -------------------------------------
-  setting.fps.disabled=true;
-  setting.rate.disabled=true;
+  setting.fps.disabled = true;
+  setting.rate.disabled = true;
   /** @type {HTMLElement[]} */
   const boxes = [];
   // div要素の配置
@@ -84,17 +96,33 @@ function init() {
   // --------------------------------
   // 繰り返し処理
   // --------------------------------
-  loop();
 
+  let time = 0;
+  let data = 0;
+  let isCheck = 0;
+  let data = [];
+  loop();
   /** 描画します */
   function loop() {
-    requestAnimationFrame(loop);
-
+    if (audio.currentTime < audio.duration) {
+      requestAnimationFrame(loop);
+    } else {
+      exportSB3(audio.src, image.src, data);
+    }
+    duration.innerHTML =
+      (
+        Math.round((audio.currentTime / audio.duration) * 10000) / 10000
+      ).toString() + "%";
     // 波形データを格納する配列の生成
     const freqByteData = new Uint8Array(FFT_SIZE / 2);
     // それぞれの周波数の振幅を取得
     nodeAnalyser.getByteFrequencyData(freqByteData);
-
+    isCheck = (isCheck + 1) % (30 / FPS);
+    if (isCheck == 0) {
+      for (let i = 0; i < freqByteData.length; ++i) {
+        data.append(freqByteData[i]);
+      }
+    }
     // 高さの更新
     for (let i = 0; i < freqByteData.length; i++) {
       const freqSum = freqByteData[i];
