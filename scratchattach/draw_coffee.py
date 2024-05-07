@@ -1,19 +1,28 @@
 import scratchattach as scratch3
 from random import randint
+from tcolorpy import tcolor
+import time
+import datetime
 from sys import exit
 #サインイン
 print("start")
-server_num=1
-ids=["707985334","964892496"]
-id=ids[server_num-1]
-names=["1",'2','3','4','5','6','7','8','9','10']
-session1=scratch3.login("遊佐ねむ","見せる訳ないだろ٩( ᐛ )و")
-session2=scratch3.login("使い方は","察してください")
-conn=[
-    session1.connect_cloud(id),
-    session2.connect_cloud(id)
-    ]
-print(len(names))
+server_num=2
+def colorprint(color,text,end="\n"):
+    print(tcolor(text,color=color),end=end)
+def pixelprint(color):
+  print(tcolor("  ",bg_color=color),end="")
+def show_px_art(data):
+    for y in range(len(data)):
+        for x in range(len(data[y])):
+            px=data[y][x]
+            if px=="0":
+                px="#ffffff"
+            elif px=="1":
+                px="#4e0900"
+            else:
+                px="#ffab19"
+            pixelprint(px)
+        print()
 b_coffee=[
     "111000000011111",
     "111011111101111",
@@ -110,20 +119,72 @@ cat=[
     '000222222222000',
     '000222222222000',
     ]
-images=[
-    b_coffee,
-    check,
-    normal,
-    heart,
-    star,
-    itimatsu,
-    dotCharactor,
-    cat
+infinity=[
+    '000222222222000',
+    '002000000000200',
+    '020111000111020',
+    '201000101000102',
+    '210000010000012',
+    '210000010000012',
+    '201000101000102',
+    '020111000111020',
+    '002000000000200',
+    '000222222222000',
     ]
+creeper=[
+    "000011111111000",
+    "000011111111000",
+    "000012211221000",
+    "000012211221000",
+    "000011122111000",
+    "000011222211000",
+    "000011222211000",
+    "000011211211000",
+    "000001111110000",
+    "000001111110000",
+    ]
+mashroomforest=[
+    "220022220022200",
+    "200002200002000",
+    "220002200022200",
+    "222222222221222",
+    "222112222211122",
+    "221111222111112",
+    "211111122220222",
+    "222002222220222",
+    "122002122120221",
+    "111111111111111",
+    ]
+
+images=[]
+def resetimages():
+    global images
+    images=[
+        b_coffee.copy(),
+        check.copy(),
+        normal.copy(),
+        heart.copy(),
+        star.copy(),
+        itimatsu.copy(),
+        dotCharactor.copy(),
+        cat.copy(),
+        infinity.copy(),
+        creeper.copy(),
+        mashroomforest.copy()
+    ]
+    for image_count in range(len(images)):
+        for line_count in range(len(images[image_count])):
+            images[image_count][line_count]=convertcolor(images[image_count][line_count],server_num)
+            
+ids=["707985334","964892496"]
+id=ids[server_num-1]
+names=["a1",'a2','a3','a4','a5','a6','a7','a8','a9','a10']
+#ここでサインイン
+conn=[]#ここにクラウドコネクトを入れておく
 print("are you ready?")
 leng=15
 loop=0
-timing=[0,1,2,3,4]
+timing=[0,1,2,3,4,5,6,7,8,9]
 def randcolor():
     result=""
     for i in range(leng):
@@ -135,24 +196,29 @@ def convertcolor(code,driver):
         for i in range(len(code)):
             j=int(code[i])
             result+=str(3*((i+1)%3)+j)
+        now=datetime.datetime.now()
+        result=int(result)
+        result+=now.hour*now.minute*10001
+        result=str(result)
     elif driver==2:
         for i in range(len(code)):
             j=int(code[i])
             result+=str(3*((i+1)%2)+j)
     return result
-
-#データをあらかじめ変換する
-for image_count in range(len(images)):
-    for line_count in range(len(images[image_count])):
-        images[image_count][line_count]=convertcolor(images[image_count][line_count],server_num)
+resetimages()
 white=convertcolor("0"*15,server_num)
 coffee=convertcolor("1"*15,server_num)
 orange=convertcolor("2"*15,server_num)
-for power in range(100000):
-    type=randint(0,len(images)-1)
+minute=datetime.datetime.now().minute
+for power in range(1000):
+    if minute != datetime.datetime.now().minute:
+        print("一分経過")
+        minute=datetime.datetime.now().minute
+        resetimages()
+    type=len(images)-1#randint(0,len(images)-1)
     for count in range(randint(1,15)):
         for i in range(0,len(names),1):
             code=str(randint(0,2))
-            conn[loop].set_var(names[timing[i%len(timing)]],white)
+            conn[loop].set_var(names[timing[i%len(timing)]],images[type][timing[i%len(timing)]])
             loop=(loop+1)%len(conn)
         print(power)
