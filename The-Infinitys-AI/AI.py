@@ -75,98 +75,115 @@ session = scratch3.login("InfinityServerSystem", INFINITY_PASS)
 # connect: https://scratch.mit.edu/projects/1047954105/
 project = session.connect_project("1047954105")
 project.set_instructions("Now Running: " + datetime.datetime.now().isoformat())
-while True:
-    for i in range(2):
-        already = False
-        comments = project.comments(limit=3, offset=0)
-        for comment in comments:
-            replies = project.get_comment_replies(
-                comment_id=comment["id"], limit=40, offset=0
-            )
-            for reply in replies:
-                if reply["author"]["username"] == "InfinityServerSystem":
-                    already = True
-            if already:
-                if (
-                    len(
-                        project.get_comment_replies(
-                            comment_id=comment["id"], limit=2, offset=0
+try:
+    while True:
+        for i in range(2):
+            already = False
+            comments = project.comments(limit=3, offset=0)
+            for comment in comments:
+                replies = project.get_comment_replies(
+                    comment_id=comment["id"], limit=40, offset=0
+                )
+                for reply in replies:
+                    if reply["author"]["username"] == "InfinityServerSystem":
+                        already = True
+                if already:
+                    if (
+                        len(
+                            project.get_comment_replies(
+                                comment_id=comment["id"], limit=2, offset=0
+                            )
                         )
-                    )
-                    > 1
-                ):
-                    project.delete_comment(comment_id=comment["id"])
-            else:
-                prompt = comment["content"]
-                author = comment["author"]["username"]
-                if author == "The_Infinitys" and prompt.startswith("The-Infinitys: "):
-                    # run cmds
-                    project.delete_comment(comment_id=comment["id"])
-                    command=prompt[len("The-Infinitys: "):]
-                    if command=="exit":
-                        print("shutdown")
-                        project.set_instructions(
-                            "Stoped: " + datetime.datetime.now().isoformat()
-                        )
-                        with open("./The-Infinitys-AI/controller.json", mode="w") as f:
-                            f.write(json.dumps(setting, indent=2, sort_keys=True))
-                        os.system("git config user.name github-actions")
-                        os.system("git config user.email github-actions@github.com")
-                        os.system("git add .")
-                        os.system("git pull")
-                        os.system(
-                            'git commit -m "Saved AI data: '
-                            + datetime.datetime.now().isoformat()
-                            + '"'
-                        )
-                        os.system("git push")
-                        sys.exit(0)
-                    elif command=="save":
-                        with open("./The-Infinitys-AI/controller.json", mode="w") as f:
-                            f.write(json.dumps(setting, indent=2, sort_keys=True))
-                        os.system("git config user.name github-actions")
-                        os.system("git config user.email github-actions@github.com")
-                        os.system("git add .")
-                        os.system("git pull")
-                        os.system(
-                            'git commit -m "Saved AI data: '
-                            + datetime.datetime.now().isoformat()
-                            + '"'
-                        )
-                        os.system("git push")
-                    elif command=="remove":
-                        for comment in project.comments(limit=40,offset=0):
-                            project.delete_comment(comment_id=comment["id"])
-                    elif command.startswith("character "):
-                        target=command[len("character "):]
-                        inf_ai.character = target
-                    elif command.startswith("block "):
-                        target=command[len("block "):]
-                        setting["blocked"].append(target)
+                        > 1
+                    ):
+                        project.delete_comment(comment_id=comment["id"])
                 else:
-                    reply_text = ""
-                    if author in setting["blocked"]:
-                        reply_text = ("@" 
-                                      + author 
-                                      + "、あなたは少し調子に乗り過ぎです。"
-                                      + datetime.datetime.now().isoformat()
-                                     )
-                    elif author == "The_Infinitys":
-                        reply_text = inf_ai.generate(
-                            contents=author + "(管理者)からの質問です。\n" + prompt
-                        )
+                    prompt = comment["content"]
+                    author = comment["author"]["username"]
+                    if author == "The_Infinitys" and prompt.startswith("The-Infinitys: "):
+                        # run cmds
+                        project.delete_comment(comment_id=comment["id"])
+                        command=prompt[len("The-Infinitys: "):]
+                        if command=="exit":
+                            print("shutdown")
+                            project.set_instructions(
+                                "Stoped: " + datetime.datetime.now().isoformat()
+                            )
+                            with open("./The-Infinitys-AI/controller.json", mode="w") as f:
+                                f.write(json.dumps(setting, indent=2, sort_keys=True))
+                            os.system("git config user.name github-actions")
+                            os.system("git config user.email github-actions@github.com")
+                            os.system("git add .")
+                            os.system("git pull")
+                            os.system(
+                                'git commit -m "Saved AI data: '
+                                + datetime.datetime.now().isoformat()
+                                + '"'
+                            )
+                            os.system("git push")
+                            sys.exit(0)
+                        elif command=="save":
+                            with open("./The-Infinitys-AI/controller.json", mode="w") as f:
+                                f.write(json.dumps(setting, indent=2, sort_keys=True))
+                            os.system("git config user.name github-actions")
+                            os.system("git config user.email github-actions@github.com")
+                            os.system("git add .")
+                            os.system("git pull")
+                            os.system(
+                                'git commit -m "Saved AI data: '
+                                + datetime.datetime.now().isoformat()
+                                + '"'
+                            )
+                            os.system("git push")
+                        elif command=="remove":
+                            for comment in project.comments(limit=40,offset=0):
+                                project.delete_comment(comment_id=comment["id"])
+                        elif command.startswith("character "):
+                            target=command[len("character "):]
+                            inf_ai.character = target
+                        elif command.startswith("block "):
+                            target=command[len("block "):]
+                            setting["blocked"].append(target)
                     else:
-                        reply_text = inf_ai.generate(
-                            contents=author + "(非管理者)からの質問です。\n" + prompt
+                        reply_text = ""
+                        if author in setting["blocked"]:
+                            reply_text = ("@" 
+                                          + author 
+                                          + "、あなたは少し調子に乗り過ぎです。"
+                                          + datetime.datetime.now().isoformat()
+                                         )
+                        elif author == "The_Infinitys":
+                            reply_text = inf_ai.generate(
+                                contents=author + "(管理者)からの質問です。\n" + prompt
+                            )
+                        else:
+                            reply_text = inf_ai.generate(
+                                contents=author + "(非管理者)からの質問です。\n" + prompt
+                            )
+                        if len(reply_text) > 475:
+                            reply_text = reply_text[:475] + "...(長すぎたので省略します。)"
+                        project.reply_comment(
+                            content=reply_text,
+                            parent_id=comment["id"],
+                            commentee_id=comment["author"]["id"],
                         )
-                    if len(reply_text) > 475:
-                        reply_text = reply_text[:475] + "...(長すぎたので省略します。)"
-                    project.reply_comment(
-                        content=reply_text,
-                        parent_id=comment["id"],
-                        commentee_id=comment["author"]["id"],
-                    )
-                    setting["log"].append(
-                        {"author": author, "prompt": prompt, "content": reply_text,"date":datetime.datetime.now().isoformat()}
-                    )
-            time.sleep(10)
+                        setting["log"].append(
+                            {"author": author, "prompt": prompt, "content": reply_text,"date":datetime.datetime.now().isoformat()}
+                        )
+                time.sleep(10)
+except:
+    project.set_instructions("Broken: " + datetime.datetime.now().isoformat())
+    print("broken")
+    with open("./The-Infinitys-AI/controller.json", mode="w") as f:
+        f.write(json.dumps(setting, indent=2, sort_keys=True))
+    os.system("git config user.name github-actions")
+    os.system("git config user.email github-actions@github.com")
+    os.system("git add .")
+    os.system("git pull")
+    os.system(
+        'git commit -m "Saved AI data: '
+        + datetime.datetime.now().isoformat()
+        + '"'
+    )
+    os.system("git push")
+    sys.exit(0)
