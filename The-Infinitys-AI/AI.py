@@ -9,11 +9,8 @@ import datetime
 # check
 def check()->bool:
     return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
-def end()->int:
-    project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
-    return 0
 if not check():
-    sys.exit(end())
+    sys.exit(0)
 # secrets
 STUDIO_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
 INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
@@ -86,6 +83,9 @@ session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
 project.set_instructions("Now Running: "+datetime.datetime.now().isoformat())
+def end()->int:
+    project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
+    return 0
 while check():
     for i in range(2):
         already = False
