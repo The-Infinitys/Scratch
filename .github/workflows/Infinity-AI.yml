@@ -1,9 +1,8 @@
 name: Infinity AI
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
+  repository-projects: write
 
 on: workflow_dispatch
 jobs:
