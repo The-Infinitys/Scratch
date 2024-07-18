@@ -7,10 +7,9 @@ import sys
 import datetime
 
 # check
-def check()->bool:
-    return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
-if not check():
-    sys.exit(0)
+get_setting():
+    return json.loads(open("./The-Infinitys-AI/controller.json").read())
+setting = get_setting();
 # secrets
 STUDIO_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
 INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
@@ -18,16 +17,7 @@ INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
 
 class The_Infinitys_AI:
     def __init__(self)->None:
-        self.character_setting = '''
-        #命令文
-        次の#キャラクター設定に従って質問に回答してください。なお、回答は必ず400字未満になるように内容を調整してください。
-        #キャラクター設定
-        *名前: The Infinity's AI
-        *開発者: The Infinity's (The_Infinitys)
-        *趣味や興味: プログラミング 音楽
-        *性格:  論理・客観的　正論
-        *言語スタイル: 主語はわたし、極稀に俺、口調は敬体で、「！」や「...」を多用する。
-        '''
+        self.character_setting = setting["character"]
 
     def generate(self, contents=[]) -> str:
         API_KEY = STUDIO_KEY
@@ -83,7 +73,7 @@ session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
 project.set_instructions("Now Running: "+datetime.datetime.now().isoformat())
-while check():
+while True:
     for i in range(2):
         already = False
         comments = project.comments(limit = 3,offset=0)
@@ -102,14 +92,12 @@ while check():
                     print("shutdown")
                     project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
                     project.delete_comment(comment_id=comment["id"])
+                    with open("./The-infinitys-AI/controller.json") as f:
+                        f.write(json.dumps(setting,indent=2,sort_keys=True))
                     sys.exit(0)
                 reply_text = inf_ai.generate(contents=author+"からの質問です。\n"+prompt)
                 if len(reply_text)>475:
                     reply_text=reply_text[:475]+"...(長すぎたので省略します。)"
                 project.reply_comment(content=reply_text, parent_id=comment["id"], commentee_id=comment["author"]["id"])
-                print("-"*20)
-                print("author:",author)
-                print("prompt:",prompt)
-                print("content:",reply_text)
-                print("-"*20)
+                setting["log"].append({"author":author,"prompt":prompt,"content":reply_text})
             time.sleep(10)
