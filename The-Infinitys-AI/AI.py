@@ -80,7 +80,7 @@ def check()->bool:
     return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
 
 while check():
-    for i in range(10):
+    for i in range(2):
         already = False
         comments = project.comments(limit = 3,offset=0)
         for comment in comments:
@@ -91,6 +91,8 @@ while check():
             if not already:
                 prompt=comment["content"]
                 reply_text = inf_ai.generate(contents=prompt)
+                if len(reply_text)>400:
+                    reply_text=reply_text[:400]+"...(長すぎたので省略します。)"
                 project.reply_comment(content=reply_text, parent_id=comment["id"], commentee_id=comment["author"]["id"])
                 print("-"*20)
                 print("author:",comment["author"]["username"])
