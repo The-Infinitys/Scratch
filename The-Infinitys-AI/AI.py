@@ -102,6 +102,7 @@ while check():
                 prompt=comment["content"]
                 if comment["author"]["username"] == "The_Infinitys" and prompt == "exit-Infinity":
                     print("shutdown")
+                    project.delete_comment(comment_id=comment["id"])
                     sys.exit(end())
                 reply_text = inf_ai.generate(contents=prompt)
                 if len(reply_text)>400:
