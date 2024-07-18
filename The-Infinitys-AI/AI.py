@@ -14,7 +14,7 @@ character_setting = '''
 
 
 def generate_Infinity_AI(prompt_text, contents=[]) -> str:
-    API_KEY = os.environ["GOOGLE_AI_KEY"]
+    API_KEY = os.environ["GOOGLE_STUDIO_AI_KEY"]
     headers = {"content-type": "application/json"}
     data = {
         "contents": [
