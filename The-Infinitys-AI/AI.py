@@ -75,6 +75,9 @@ def check()->bool:
         ).json()["run"]
 
 #TODO: これの続きを書こう
-
-#while check():
-    
+'''
+while check():
+    already = False
+    comments = project.comments(limit = 3)
+    for comment in comments:
+        pass'''
