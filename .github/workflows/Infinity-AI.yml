@@ -1,0 +1,12 @@
+name: Infinity AI
+
+on: workflow_dispatch
+jobs:
+  Prompt:
+    name: The Infinitys AI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        env:
+          GOOGLE_AI_STUDIO_KEY: ${{ secrets.GOOGLE_AI_STUDIO_KEY }}
+      - run: python ./The-Infinitys-AI/AI.py
