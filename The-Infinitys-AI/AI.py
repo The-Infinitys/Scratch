@@ -143,11 +143,11 @@ try:
                             inf_ai.character = target
                         elif command.startswith("block "):
                             target=command[len("block "):]
-                            if not target in setting["block"]:
+                            if not target in setting["blocked"]:
                                 setting["blocked"].append(target)
                         elif command.startswith("unblock "):
                             target=command[len("unblock "):]
-                            if target in setting["block"]:
+                            if target in setting["blocked"]:
                                 setting["blocked"].remove(target)
                     else:
                         reply_text = ""
