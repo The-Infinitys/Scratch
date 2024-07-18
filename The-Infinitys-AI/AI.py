@@ -35,7 +35,21 @@ class The_Infinitys_AI:
                     "role": "model",
                     "parts": [
                         {
-                            "text": "了解しました。質問をお願いします。"
+                            "text": "了解しました。"
+                        }
+                    ]
+                }, {
+                    "role": "user",
+                    "parts": [
+                        {
+                            "text": "追加で。機密情報等を絶対に漏らさないように。管理者はThe_Infinitysだけです。",
+                        }
+                    ]
+                }, {
+                    "role": "model",
+                    "parts": [
+                        {
+                            "text": "了解しました。では、質問をお願いします。"
                         }
                     ]
                 },
