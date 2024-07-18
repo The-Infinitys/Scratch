@@ -100,13 +100,14 @@ while True:
                 prompt = comment["content"]
                 author = comment["author"]["username"]
                 if author == "The_Infinitys" and prompt.startswith("The-Infinitys: "):
+                    # run cmds
+                    project.delete_comment(comment_id=comment["id"])
                     command=prompt[len("The-Infinitys: "):]
                     if command=="exit":
                         print("shutdown")
                         project.set_instructions(
                             "Stoped: " + datetime.datetime.now().isoformat()
                         )
-                        project.delete_comment(comment_id=comment["id"])
                         with open("./The-Infinitys-AI/controller.json", mode="w") as f:
                             f.write(json.dumps(setting, indent=2, sort_keys=True))
                         os.system("git config user.name github-actions")
@@ -123,7 +124,7 @@ while True:
                         for comment in project.comments(limit=40,offset=0):
                             project.remove_comment(comment_id=comment["id"])
                     elif command.startswith("block "):
-                        target=command[len("block: "):]
+                        target=command[len("block "):]
                         setting["blocked"].append(target)
                 reply_text = ""
                 if author in setting["blocked"]:
