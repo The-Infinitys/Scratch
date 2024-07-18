@@ -4,6 +4,7 @@ import os
 import time
 import scratchattach as scratch3
 import sys
+import datetime
 
 # check
 def check()->bool:
@@ -81,7 +82,7 @@ session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
-
+project.set_instructions("Now Running: "+datetime.datetime.now().isoformat())
 while check():
     for i in range(2):
         already = False
@@ -103,3 +104,4 @@ while check():
                 print("content:",reply_text)
                 print("-"*20)
             time.sleep(10)
+project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
