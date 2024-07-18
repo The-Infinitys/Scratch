@@ -82,9 +82,6 @@ session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
 project.set_instructions("Now Running: "+datetime.datetime.now().isoformat())
-def end()->int:
-    project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
-    return 0
 while check():
     for i in range(2):
         already = False
@@ -101,8 +98,9 @@ while check():
                 prompt=comment["content"]
                 if comment["author"]["username"] == "The_Infinitys" and prompt == "exit-Infinity":
                     print("shutdown")
+                    project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
                     project.delete_comment(comment_id=comment["id"])
-                    sys.exit(end())
+                    sys.exit(0)
                 reply_text = inf_ai.generate(contents=prompt)
                 if len(reply_text)>400:
                     reply_text=reply_text[:400]+"...(長すぎたので省略します。)"
