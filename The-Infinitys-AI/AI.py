@@ -126,25 +126,26 @@ while True:
                     elif command.startswith("block "):
                         target=command[len("block "):]
                         setting["blocked"].append(target)
-                reply_text = ""
-                if author in setting["blocked"]:
-                    reply_text = ("@" 
-                                  + author 
-                                  + "、あなたは少し調子に乗り過ぎです。"
-                                  + datetime.datetime.now().isoformat()
-                                 )
                 else:
-                    reply_text = inf_ai.generate(
-                        contents=author + "からの質問です。\n" + prompt
+                    reply_text = ""
+                    if author in setting["blocked"]:
+                        reply_text = ("@" 
+                                      + author 
+                                      + "、あなたは少し調子に乗り過ぎです。"
+                                      + datetime.datetime.now().isoformat()
+                                     )
+                    else:
+                        reply_text = inf_ai.generate(
+                            contents=author + "からの質問です。\n" + prompt
+                        )
+                    if len(reply_text) > 475:
+                        reply_text = reply_text[:475] + "...(長すぎたので省略します。)"
+                    project.reply_comment(
+                        content=reply_text,
+                        parent_id=comment["id"],
+                        commentee_id=comment["author"]["id"],
                     )
-                if len(reply_text) > 475:
-                    reply_text = reply_text[:475] + "...(長すぎたので省略します。)"
-                project.reply_comment(
-                    content=reply_text,
-                    parent_id=comment["id"],
-                    commentee_id=comment["author"]["id"],
-                )
-                setting["log"].append(
-                    {"author": author, "prompt": prompt, "content": reply_text}
-                )
+                    setting["log"].append(
+                        {"author": author, "prompt": prompt, "content": reply_text}
+                    )
             time.sleep(10)
