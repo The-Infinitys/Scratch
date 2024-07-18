@@ -1,7 +1,9 @@
 import requests
 import json
 import os
+import time
 import scratchattach as scratch3
+
 
 # secrets
 STUDIO_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
@@ -9,7 +11,7 @@ INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
 
 
 class The_Infinitys_AI:
-    def __init__()->None:
+    def __init__(self)->None:
         self.character_setting = '''
         #命令文
         次の#キャラクター設定に従って質問に回答してください。
@@ -21,7 +23,7 @@ class The_Infinitys_AI:
         *言語スタイル: 主語は私(わたし)、口調は敬体。
         '''
 
-    def generate(self,prompt_text, contents=[]) -> str:
+    def generate(self, contents=[]) -> str:
         API_KEY = STUDIO_KEY
         headers = {"content-type": "application/json"}
         data = {
@@ -75,14 +77,24 @@ session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
 def check()->bool:
-    return requests.get(
-        "https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json"
-        ).json()["run"]
+    return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
 
-#TODO: これの続きを書こう
-'''
 while check():
-    already = False
-    comments = project.comments(limit = 3)
-    for comment in comments:
-        pass'''
+    for i in range(10):
+        already = False
+        comments = project.comments(limit = 3,offset=0)
+        for comment in comments:
+            replies = project.get_comment_replies(comment_id=comment["id"], limit=40, offset=0) 
+            for reply in replies:
+                if reply["author"]["username"] == "InfinityServerSystem":
+                    already = True
+            if not already:
+                prompt=comment["content"]
+                reply_text = inf_ai.generate(contents=prompt)
+                project.reply_comment(content=reply_text, parent_id=comment["id"], commentee_id=comment["author"]["id"])
+                print("-"*20)
+                print("author:",comment["author"]["username"])
+                print("prompt:",prompt)
+                print("content:",reply_text)
+                print("-"*20)
+            time.sleep(10)
