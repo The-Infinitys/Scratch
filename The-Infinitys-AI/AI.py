@@ -9,8 +9,11 @@ import datetime
 # check
 def check()->bool:
     return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
+def end()->int:
+    project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
+    return 0
 if not check():
-    sys.exit(0)
+    sys.exit(end())
 # secrets
 STUDIO_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
 INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
@@ -98,7 +101,7 @@ while check():
                 prompt=comment["content"]
                 if comment["author"]["username"] == "The_Infinitys" and prompt == "exit-Infinity":
                     print("shutdown")
-                    sys.exit(0)
+                    sys.exit(end())
                 reply_text = inf_ai.generate(contents=prompt)
                 if len(reply_text)>400:
                     reply_text=reply_text[:400]+"...(長すぎたので省略します。)"
@@ -109,4 +112,3 @@ while check():
                 print("content:",reply_text)
                 print("-"*20)
             time.sleep(10)
-project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
