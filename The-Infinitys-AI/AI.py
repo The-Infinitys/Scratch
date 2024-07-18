@@ -22,7 +22,7 @@ class The_Infinitys_AI:
     def __init__(self) -> None:
         self.characters = setting["characters"]
         self.character = "The-Infinitys-AI"
-    def generate(self, contents=[], character=self.character) -> str:
+    def generate(self, contents=[]) -> str:
         API_KEY = STUDIO_KEY
         headers = {"content-type": "application/json"}
         data = {
@@ -32,7 +32,7 @@ class The_Infinitys_AI:
                     "parts": [
                         {
                             "text": "\n#命令文\n次の#キャラクター設定に従って質問に回答してください。なお、回答は必ず400字未満になるように内容を調整してください。\n#キャラクター設定\n"
-                            + self.characters[character],
+                            + self.characters[self.character],
                         }
                     ],
                 },
