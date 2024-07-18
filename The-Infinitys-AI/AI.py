@@ -88,12 +88,17 @@ while check():
         already = False
         comments = project.comments(limit = 3,offset=0)
         for comment in comments:
-            replies = project.get_comment_replies(comment_id=comment["id"], limit=40, offset=0) 
+            replies = project.get_comment_replies(comment_id=comment["id"], limit=40, offset=0)
             for reply in replies:
                 if reply["author"]["username"] == "InfinityServerSystem":
                     already = True
-            if not already:
+            if already:
+                project.delete_comment(comment_id=comment["id"])
+            else:
                 prompt=comment["content"]
+                if comment["author"]["username"] == "The_Infinitys" and prompt == "exit-Infinity":
+                    print("shutdown")
+                    sys.exit(0)
                 reply_text = inf_ai.generate(contents=prompt)
                 if len(reply_text)>400:
                     reply_text=reply_text[:400]+"...(長すぎたので省略します。)"
