@@ -92,7 +92,7 @@ while True:
                     print("shutdown")
                     project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
                     project.delete_comment(comment_id=comment["id"])
-                    with open("./The-Infinitys-AI/controller.json") as f:
+                    with open("./The-Infinitys-AI/controller.json", mode = "w") as f:
                         f.write(json.dumps(setting,indent=2,sort_keys=True))
                     os.system("git config user.name github-actions")
                     os.system("git config user.email github-actions@github.com")
