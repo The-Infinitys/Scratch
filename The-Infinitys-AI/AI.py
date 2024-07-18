@@ -20,7 +20,7 @@ class The_Infinitys_AI:
     def __init__(self)->None:
         self.character_setting = '''
         #命令文
-        次の#キャラクター設定に従って質問に回答してください。
+        次の#キャラクター設定に従って質問に回答してください。なお、回答は必ず400字未満になるように内容を調整してください。
         #キャラクター設定
         *名前: The Infinity's AI
         *開発者: The Infinity's (The_Infinitys)
