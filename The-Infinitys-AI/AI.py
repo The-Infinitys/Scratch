@@ -52,7 +52,7 @@ def generate_Infinity_AI(prompt_text, contents=[]) -> str:
 
 
 contents = []
-prompt = input("You >: ")
+prompt = "貴方について教えてください"
 contents.append(
   {
   "role": "user",
@@ -64,3 +64,4 @@ contents.append(
   }
 )
 result = generate_Infinity_AI(prompt, contents=contents)
+print(result)
