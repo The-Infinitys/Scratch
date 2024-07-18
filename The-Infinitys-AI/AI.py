@@ -96,17 +96,18 @@ while check():
                     project.delete_comment(comment_id=comment["id"])
             else:
                 prompt=comment["content"]
-                if comment["author"]["username"] == "The_Infinitys" and prompt == "exit-Infinity":
+                author=comment["author"]["username"]
+                if author == "The_Infinitys" and prompt == "exit-Infinity":
                     print("shutdown")
                     project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
                     project.delete_comment(comment_id=comment["id"])
                     sys.exit(0)
-                reply_text = inf_ai.generate(contents=prompt)
+                reply_text = inf_ai.generate(contents=+"からの質問です。\n"+prompt)
                 if len(reply_text)>400:
                     reply_text=reply_text[:400]+"...(長すぎたので省略します。)"
                 project.reply_comment(content=reply_text, parent_id=comment["id"], commentee_id=comment["author"]["id"])
                 print("-"*20)
-                print("author:",comment["author"]["username"])
+                print("author:",author)
                 print("prompt:",prompt)
                 print("content:",reply_text)
                 print("-"*20)
