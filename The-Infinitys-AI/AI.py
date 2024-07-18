@@ -3,8 +3,13 @@ import json
 import os
 import time
 import scratchattach as scratch3
+import sys
 
-
+# check
+def check()->bool:
+    return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
+if not check():
+    sys.exit(0)
 # secrets
 STUDIO_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
 INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
@@ -76,8 +81,6 @@ session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
-def check()->bool:
-    return requests.get("https://develop.the-infinitys.f5.si/Scratch/The-Infinitys-AI/controller.json").json()["run"]
 
 while check():
     for i in range(2):
