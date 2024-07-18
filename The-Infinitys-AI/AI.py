@@ -102,7 +102,7 @@ while check():
                     project.set_instructions("Stoped: "+datetime.datetime.now().isoformat())
                     project.delete_comment(comment_id=comment["id"])
                     sys.exit(0)
-                reply_text = inf_ai.generate(contents=+"からの質問です。\n"+prompt)
+                reply_text = inf_ai.generate(contents=author+"からの質問です。\n"+prompt)
                 if len(reply_text)>400:
                     reply_text=reply_text[:400]+"...(長すぎたので省略します。)"
                 project.reply_comment(content=reply_text, parent_id=comment["id"], commentee_id=comment["author"]["id"])
