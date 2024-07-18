@@ -96,7 +96,8 @@ while check():
                 if reply["author"]["username"] == "InfinityServerSystem":
                     already = True
             if already:
-                project.delete_comment(comment_id=comment["id"])
+                if len(project.get_comment_replies(comment_id=comment["id"], limit=2, offset=0))>1:
+                    project.delete_comment(comment_id=comment["id"])
             else:
                 prompt=comment["content"]
                 if comment["author"]["username"] == "The_Infinitys" and prompt == "exit-Infinity":
