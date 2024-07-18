@@ -38,8 +38,20 @@ def generate_Infinity_AI(prompt_text, contents=[]) -> str:
             },
         ]
     }
-    for content in contents:
-        data["contents"].append(content)
+    if type(contents) is list:
+        for content in contents:
+            data["contents"].append(content)
+    elif type(contents) is str:
+        data["contents"].append(
+            {
+                "role": "user",
+                "parts": [
+                    {
+                        "text": contents
+                    }
+                ]
+            }
+        )
     json_data = json.dumps(data)
     resp = requests.post(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key="
@@ -52,17 +64,6 @@ def generate_Infinity_AI(prompt_text, contents=[]) -> str:
     return result_text
 
 
-contents = []
-prompt = "貴方について教えてください"
-contents.append(
-  {
-  "role": "user",
-    "parts": [
-      {
-        "text": prompt
-      }
-    ]
-  }
-)
+contents = "貴方について教えてください"
 result = generate_Infinity_AI(prompt, contents=contents)
 print(result)
