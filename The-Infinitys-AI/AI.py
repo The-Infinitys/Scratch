@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-import scratchatttach as scratch3
+import scratchattach as scratch3
 
 class The_Infinitys_AI:
     def __init__()->None:
@@ -75,3 +75,6 @@ def check()->bool:
         ).json()["run"]
 
 #TODO: これの続きを書こう
+
+#while check():
+    
