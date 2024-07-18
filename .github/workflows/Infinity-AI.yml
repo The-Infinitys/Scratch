@@ -1,5 +1,10 @@
 name: Infinity AI
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 on: workflow_dispatch
 jobs:
   Prompt:
