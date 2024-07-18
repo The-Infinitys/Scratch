@@ -21,8 +21,8 @@ INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
 class The_Infinitys_AI:
     def __init__(self) -> None:
         self.characters = setting["characters"]
-
-    def generate(self, contents=[], character="The-Infinitys-AI") -> str:
+        self.character = "The-Infinitys-AI"
+    def generate(self, contents=[], character=self.character) -> str:
         API_KEY = STUDIO_KEY
         headers = {"content-type": "application/json"}
         data = {
@@ -121,9 +121,25 @@ while True:
                         )
                         os.system("git push")
                         sys.exit(0)
+                    elif command=="save":
+                        with open("./The-Infinitys-AI/controller.json", mode="w") as f:
+                            f.write(json.dumps(setting, indent=2, sort_keys=True))
+                        os.system("git config user.name github-actions")
+                        os.system("git config user.email github-actions@github.com")
+                        os.system("git add .")
+                        os.system("git pull")
+                        os.system(
+                            'git commit -m "Saved AI data: '
+                            + datetime.datetime.now().isoformat()
+                            + '"'
+                        )
+                        os.system("git push")
                     elif command=="remove":
                         for comment in project.comments(limit=40,offset=0):
                             project.delete_comment(comment_id=comment["id"])
+                    elif command.startswith("character "):
+                        target=command[len("character "):]
+                        inf_ai.character = target
                     elif command.startswith("block "):
                         target=command[len("block "):]
                         setting["blocked"].append(target)
@@ -151,6 +167,6 @@ while True:
                         commentee_id=comment["author"]["id"],
                     )
                     setting["log"].append(
-                        {"author": author, "prompt": prompt, "content": reply_text}
+                        {"author": author, "prompt": prompt, "content": reply_text,"date":datetime.datetime.now().isoformat()}
                     )
             time.sleep(10)
