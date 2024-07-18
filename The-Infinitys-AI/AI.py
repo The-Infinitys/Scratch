@@ -17,9 +17,9 @@ INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
 
 class The_Infinitys_AI:
     def __init__(self)->None:
-        self.character_setting = setting["character"]
+        self.characters = setting["characters"]
 
-    def generate(self, contents=[]) -> str:
+    def generate(self, contents=[], character="The-Infinitys-AI") -> str:
         API_KEY = STUDIO_KEY
         headers = {"content-type": "application/json"}
         data = {
@@ -28,7 +28,7 @@ class The_Infinitys_AI:
                     "role": "user",
                     "parts": [
                         {
-                            "text": self.character_setting,
+                            "text": self.characters[character],
                         }
                     ]
                 }, {
