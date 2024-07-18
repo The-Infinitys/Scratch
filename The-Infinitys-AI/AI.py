@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 character_setting = '''
 #命令文
