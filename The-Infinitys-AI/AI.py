@@ -3,6 +3,11 @@ import json
 import os
 import scratchattach as scratch3
 
+# secrets
+STUDIO_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
+INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
+
+
 class The_Infinitys_AI:
     def __init__()->None:
         self.character_setting = '''
@@ -17,7 +22,7 @@ class The_Infinitys_AI:
         '''
 
     def generate(self,prompt_text, contents=[]) -> str:
-        API_KEY = os.environ["GOOGLE_AI_STUDIO_KEY"]
+        API_KEY = STUDIO_KEY
         headers = {"content-type": "application/json"}
         data = {
             "contents": [
@@ -65,7 +70,7 @@ class The_Infinitys_AI:
 
 # setup
 inf_ai=The_Infinitys_AI()
-session=scratch3.login("InfinityServerSystem",os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"])
+session=scratch3.login("InfinityServerSystem",INFINITY_PASS)
 
 #connect: https://scratch.mit.edu/projects/1047954105/
 project=session.connect_project("1047954105")
