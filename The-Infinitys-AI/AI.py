@@ -94,6 +94,11 @@ while True:
                     project.delete_comment(comment_id=comment["id"])
                     with open("./The-infinitys-AI/controller.json") as f:
                         f.write(json.dumps(setting,indent=2,sort_keys=True))
+                    os.system("git config user.name github-actions")
+                    os.system("git config user.email github-actions@github.com")
+                    os.system("git add .")
+                    os.system('git commit -m "Saved AI data: '+datetime.datetime.now().isoformat()+'"')
+                    os.system("git push")
                     sys.exit(0)
                 reply_text = inf_ai.generate(contents=author+"からの質問です。\n"+prompt)
                 if len(reply_text)>475:
