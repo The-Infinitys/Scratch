@@ -7,7 +7,7 @@ import sys
 import datetime
 
 # check
-get_setting():
+def get_setting():
     return json.loads(open("./The-Infinitys-AI/controller.json").read())
 setting = get_setting();
 # secrets
