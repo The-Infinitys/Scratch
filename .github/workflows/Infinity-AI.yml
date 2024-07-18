@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: pip install scratchattach
       - run: python ./The-Infinitys-AI/AI.py
         env: # Or as an environment variable
           GOOGLE_AI_STUDIO_KEY: ${{ secrets.GOOGLE_AI_STUDIO_KEY }}
