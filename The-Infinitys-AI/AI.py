@@ -113,6 +113,7 @@ while True:
                         os.system("git config user.name github-actions")
                         os.system("git config user.email github-actions@github.com")
                         os.system("git add .")
+                        os.system("git pull")
                         os.system(
                             'git commit -m "Saved AI data: '
                             + datetime.datetime.now().isoformat()
@@ -122,7 +123,7 @@ while True:
                         sys.exit(0)
                     elif command=="remove":
                         for comment in project.comments(limit=40,offset=0):
-                            project.remove_comment(comment_id=comment["id"])
+                            project.delete_comment(comment_id=comment["id"])
                     elif command.startswith("block "):
                         target=command[len("block "):]
                         setting["blocked"].append(target)
@@ -134,9 +135,13 @@ while True:
                                       + "、あなたは少し調子に乗り過ぎです。"
                                       + datetime.datetime.now().isoformat()
                                      )
+                    elif author == "The_Infinitys":
+                        reply_text = inf_ai.generate(
+                            contents=author + "(管理者)からの質問です。\n" + prompt
+                        )
                     else:
                         reply_text = inf_ai.generate(
-                            contents=author + "からの質問です。\n" + prompt
+                            contents=author + "(非管理者)からの質問です。\n" + prompt
                         )
                     if len(reply_text) > 475:
                         reply_text = reply_text[:475] + "...(長すぎたので省略します。)"
