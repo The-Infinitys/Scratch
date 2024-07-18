@@ -143,7 +143,12 @@ try:
                             inf_ai.character = target
                         elif command.startswith("block "):
                             target=command[len("block "):]
-                            setting["blocked"].append(target)
+                            if not target in setting["block"]:
+                                setting["blocked"].append(target)
+                        elif command.startswith("unblock "):
+                            target=command[len("unblock "):]
+                            if target in setting["block"]:
+                                setting["blocked"].remove(target)
                     else:
                         reply_text = ""
                         if author in setting["blocked"]:
