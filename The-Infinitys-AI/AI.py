@@ -135,8 +135,9 @@ try:
                                 + '"'
                             )
                             os.system("git push")
-                        elif command=="remove":
-                            for comment in project.comments(limit=40,offset=0):
+                        elif command.startswith("remove "):
+                            leng=int(command[len("remove "):])
+                            for comment in project.comments(limit=leng,offset=0):
                                 project.delete_comment(comment_id=comment["id"])
                         elif command.startswith("character "):
                             target=command[len("character "):]
@@ -176,6 +177,8 @@ try:
                             {"author": author, "prompt": prompt, "content": reply_text,"date":datetime.datetime.now().isoformat()}
                         )
                 time.sleep(10)
+except SystemExit:
+    print("succeeded!")
 except:
     project.set_instructions("Broken: " + datetime.datetime.now().isoformat())
     print("broken")
