@@ -5,10 +5,11 @@ import time
 import scratchattach as scratch3
 import sys
 import datetime
+import html
 
 json_path = "./statistics/data.json"
 
-
+session=scratch3.login(input("user:"),input("pass: "))
 # check
 def get_info():
     return json.loads(open(json_path).read())
@@ -20,7 +21,6 @@ try:
 except:
     INFINITY_PASS = input("password: ")
 info = get_info()
-print(INFINITY_PASS)
 session = scratch3.login("InfinityServerSystem", INFINITY_PASS)
 temp_text = """
 取り敢えず旗を押して、質問通りに進めてください。
@@ -37,7 +37,7 @@ try:
         for i in range(2):
             comments = project.comments(limit=5, offset=0)
             for comment in comments:
-                prompt = comment["content"]
+                prompt = html.unescape(comment["content"])
                 author = comment["author"]["username"]
                 if author == "The_Infinitys" and prompt.startswith("The-Infinitys: "):
                     # run cmds
