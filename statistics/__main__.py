@@ -18,6 +18,7 @@ INFINITY_PASS = ""
 try:
     INFINITY_PASS = os.environ["SCRATCH_INFINITYSERVERSYSTEM_PASSWORD"]
 except:
+    print("failed to load pass")
     INFINITY_PASS = input("password: ")
 info = get_info()
 session = scratch3.login("InfinityServerSystem", INFINITY_PASS)
