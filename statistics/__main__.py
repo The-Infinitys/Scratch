@@ -9,7 +9,6 @@ import html
 
 json_path = "./statistics/data.json"
 
-session=scratch3.login(input("user:"),input("pass: "))
 # check
 def get_info():
     return json.loads(open(json_path).read())
