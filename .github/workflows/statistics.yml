@@ -1,0 +1,17 @@
+name: Statistics
+
+permissions:
+  contents: write
+  repository-projects: write
+
+on: workflow_dispatch
+jobs:
+  Prompt:
+    name: The Infinitys AI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install scratchattach
+      - run: python ./statistics
+        env: # Or as an environment variable
+          SCRATCH_INFINITYSERVERSYSTEM_PASSWORD: ${{ secrets.SCRATCH_INFINITYSERVERSYSTEM_PASSWORD }}
