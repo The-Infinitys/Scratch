@@ -7,12 +7,13 @@ const Scratch_Infinity_framework = {
     <button id="Scratch-Infinity-tools-max">⬜︎</button>
     </section>
     <div data-class="tools">
+      
     </div>`,
     css: `
     #Scratch-Infinity-tools{
       position:fixed;
       z-index:10000000000;
-      width:min(100%,max(280px,50vw));
+      width:max(280px,30vw);
       height:100%;
       top:0;
       right:0;
@@ -42,6 +43,7 @@ const Scratch_Infinity_framework = {
       top:2px;
       right:40px;
       background-color:black;
+      color:white;
       border:1px solid white;
     }
     #Scratch-Infinity-tools-min{
@@ -52,6 +54,7 @@ const Scratch_Infinity_framework = {
       top:2px;
       right:0;
       background-color:black;
+      color:white;
       border:1px solid white;
     }
     #Scratch-Infinity-tools>div[data-class="tools"]{
@@ -61,6 +64,7 @@ const Scratch_Infinity_framework = {
       width:100%;
       height:calc(100%-35px);
       background-color:#111;
+      color:white;
     }
     `,
   },
