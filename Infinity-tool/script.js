@@ -1,7 +1,7 @@
-const Scratch_Infinity_framework={
-  source:{
-    html:``,
-    css:`
+const Scratch_Infinity_framework = {
+  source: {
+    html: ``,
+    css: `
     #Scratch-Infinity-tools{
       position:fixed;
       width:360px;
@@ -10,20 +10,20 @@ const Scratch_Infinity_framework={
       right:0;
       background-color:black;
       color:white;
-    }`
+    }`,
   },
-  init:()=>{
-    const frame_html=document.createElement("div");
-    frame_html.innerHTML=Scratch_Infinity_framework.source.html;
-    frame_html.id="Scratch-Infinity-tools"
-    document.body.append(frame_html)
-    const frame_css=document.createElement("style");
-    frame_css.innerHTML=Scratch_Infinity_framework.source.css;
-    document.body.append(frame_css)
+  init: () => {
+    const frame_html = document.createElement("div");
+    frame_html.innerHTML = Scratch_Infinity_framework.source.html;
+    frame_html.id = "Scratch-Infinity-tools";
+    document.body.append(frame_html);
+    const frame_css = document.createElement("style");
+    frame_css.innerHTML = Scratch_Infinity_framework.source.css;
+    document.body.append(frame_css);
   },
-  main:()=>{
+  main: () => {
     Scratch_Infinity_framework.init();
-  }
+  },
 };
 
-Scratch_Infinity_framework.main()
+Scratch_Infinity_framework.main();
