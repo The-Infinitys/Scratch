@@ -66,10 +66,10 @@ const Scratch_Infinity_framework = {
       }
       #Scratch-Infinity-tools>div[data-class="tools"]{
         position:absolute;
-        top:35px;
+        top:40px;
         left:0;
         width:100%;
-        height:calc(100% - 35px);
+        height:calc(100% - 40px);
         background-color:#333;
         color:white;
       }
