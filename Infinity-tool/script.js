@@ -12,7 +12,11 @@ const Scratch_Infinity_framework = {
         </div>
         <div data-class="windows">
           <div data-extension-name="welcome">
-            <h1>Welcome</h1>
+            <h1>ようこそ</h1>
+            <p>このInfinity Toolは、Scratchで様々な機能を様々な端末で享受する為に開発されたものです！<p>
+            <p>作者のサイト: <a href="https://the-infinitys.f5.si">https://the-infinitys.f5.si</a></p>
+            <h2>使い方</h2>
+            <p>上の方にタブを切り替えるボタンがあると思うので、そこから使いたい機能を選んでください！</p>
           </div>
         </div>
       </div>`,
@@ -79,7 +83,7 @@ const Scratch_Infinity_framework = {
         left:2px;
         width:calc(100% - 4px);
         height:35px;
-        background-color:#111;
+        background-color:transparent;
         color:white;
       }
       #Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="tabs"]>button{
@@ -155,6 +159,13 @@ const Scratch_Infinity_framework = {
       .querySelector("#Scratch-Infinity-tools-max")
       .addEventListener("click", Scratch_Infinity_framework.display.max);
     document.body.append(min_button);
+  },
+  import: (name,elem)=>{
+    if (elem.tagName.toLowerCase()!="div"){return 1}
+    const tab_button=document.createElement("button");
+    tab_button.innerHTML=name;
+    document.querySelector('#Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="windows"]').append(elem);
+    document.querySelector('#Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="tabs"]').append(tab_button);
   },
   main: () => {
     Scratch_Infinity_framework.init();
