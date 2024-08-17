@@ -155,7 +155,7 @@ const Scratch_Infinity_framework = {
   www: (extension_url) => {
     const third_extension = document.createElement("script");
     third_extension.src = extension_url;
-    document.querySelector("#Scratch-Infinity-tool").append(third_extension);
+    document.querySelector("#Scratch-Infinity-tools").append(third_extension);
   },
   import: (name, elem) => {
     if (elem.tagName.toLowerCase() != "div") {
