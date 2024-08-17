@@ -44,6 +44,11 @@ hamburgermenu_animation();
 const hamburgermenu = document.createElement("style");
 hamburgermenu.innerHTML = `
 #hamburger-button{
+  display:none;
+}
+@media (max-width: 1250px){
+#hamburger-button{
+  display:contents;
   position:fixed !important;
   right:0 !important;
   top:5px !important;
@@ -77,15 +82,18 @@ hamburgermenu.innerHTML = `
     margin-right:auto !important;
     margin-left:0 !important;
 }
-#navigation > .inner > ul > li:first-child{
+#navigation > div > ul > li.link.create{
     margin-top:50px;
 }
-#navigation > .inner > ul > li:last-child{
+#navigation > div > ul > li.link.right.login-item,
+#navigation > div > ul > li.link.right.account-nav{
     position:absolute;
-    top:0;
+    top:0 !important;
+    left:0 !important;
 }
 #navigation > div > ul > li.link.right.join,
 #navigation > div > ul > li.link.right.login-item{
     float:left;
+}
 }`;
 document.body.append(hamburgermenu);
