@@ -80,7 +80,7 @@ const Scratch_Infinity_framework = {
       }
       #Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="tabs"]>button{
         position:relative;
-        width:100px;
+        width:auto;
         height:35px;
         border-radius:10px 10px 0 0;
         background-color:#111;
