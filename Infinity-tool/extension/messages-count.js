@@ -6,6 +6,7 @@ const messages_count = {
 };
 const messages_count_input = document.createElement("input");
 const messages_count_result = document.createElement("p");
+messages_count_result.innerHTML="made by The Infinity's";
 messages_count.elem.append(messages_count_input);
 messages_count.elem.append(messages_count_result);
 messages_count_input.addEventListener("change", (e) => {
