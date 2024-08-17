@@ -62,6 +62,7 @@ hamburgermenu.innerHTML = `
   position:fixed;
   left:0;
   top:2px;
+  margin:0;
 }
 #navigation > .inner{
   display:flex;
