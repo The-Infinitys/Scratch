@@ -76,6 +76,13 @@ hamburgermenu.innerHTML = `
     margin-right:auto !important;
     margin-left:0 !important;
 }
+#navigation > .inner > ul > li:first-child{
+    margin-top:50px;
+}
+#navigation > .inner > ul > li:last-child{
+    position:absolute;
+    top:0;
+}
 #navigation > div > ul > li.link.right.join,
 #navigation > div > ul > li.link.right.login-item{
     float:left;
