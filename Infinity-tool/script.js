@@ -104,7 +104,12 @@ const Scratch_Infinity_framework = {
         width:100%;
         height:100%;
         background-color:#000;
-        color:white;
+        color:white !important;
+      }
+      #Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="windows"]>div>input{
+        border:2px solid white;
+        border-radius:10px;
+        background-color:black;
       }
     `,
   },
