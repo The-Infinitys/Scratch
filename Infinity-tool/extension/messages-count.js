@@ -14,10 +14,10 @@ messages_count_input.addEventListener("change", (e) => {
     .then((data) => data.json())
     .then((info) => {
       if (info.count == undefined) {
-        messages_count_result.innerHTML = t + "という名前のユーザーは居ません";
+        messages_count_result.innerHTML = e.value + "という名前のユーザーは居ません";
       } else {
         messages_count_result.innerHTML =
-          t + "のメッセージ数は、" + info.count.toString() + "です";
+          e.value + "のメッセージ数は、" + info.count.toString() + "です";
       }
     });
 });
