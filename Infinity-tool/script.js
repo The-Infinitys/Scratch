@@ -111,8 +111,7 @@ const Scratch_Infinity_framework = {
   display: {
     max: () => {
       const tools = document.querySelector("#Scratch-Infinity-tools");
-      const max_button = document.querySelector(
-        "#Scratch-Infinity-tools-max");
+      const max_button = document.querySelector("#Scratch-Infinity-tools-max");
       if (tools.style.width == "100%") {
         tools.style.width = null;
         max_button.innerHTML = "⬜︎";
@@ -122,8 +121,7 @@ const Scratch_Infinity_framework = {
       }
     },
     min: () => {
-      const min_button = document.querySelector(
-        "#Scratch-Infinity-tools-min");
+      const min_button = document.querySelector("#Scratch-Infinity-tools-min");
       const tools = document.querySelector("#Scratch-Infinity-tools");
       if (tools.style.display == "none") {
         tools.style.display = "";
@@ -154,10 +152,14 @@ const Scratch_Infinity_framework = {
       .addEventListener("click", Scratch_Infinity_framework.display.max);
     document.body.append(min_button);
   },
-  swap_window: (target_name) => {},
+  www: (extension_url) => {
+    const third_extension = document.createElement("script");
+    third_extension.src = extension_url;
+    document.querySelector("#Scratch-Infinity-tool").append(third_extension);
+  },
   import: (name, elem) => {
     if (elem.tagName.toLowerCase() != "div") {
-      return 1
+      return 1;
     }
     const tab_button = document.createElement("button");
     tab_button.innerHTML = name;
@@ -175,23 +177,30 @@ const Scratch_Infinity_framework = {
         }
       }
     });
-    document.querySelector(
-      '#Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="windows"]'
-    ).append(elem);
-    document.querySelector(
-      '#Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="tabs"]'
-    ).append(tab_button);
+    document
+      .querySelector(
+        '#Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="windows"]'
+      )
+      .append(elem);
+    document
+      .querySelector(
+        '#Scratch-Infinity-tools>div[data-class="tools"]>div[data-class="tabs"]'
+      )
+      .append(tab_button);
   },
   main: () => {
     Scratch_Infinity_framework.init();
     const welcome = document.createElement("div");
-    welcome.innerHTML =`
+    welcome.innerHTML = `
       <h1>ようこそ</h1>
       <p>このInfinity Toolは、Scratchで様々な機能を様々な端末で享受する為に開発されたものです！<p>
       <p>作者のサイト: <a href="https://the-infinitys.f5.si">https://the-infinitys.f5.si</a></p>
       <h2>使い方</h2>
       <p>上の方にタブを切り替えるボタンがあると思うので、そこから使いたい機能を選んでください！</p>`;
     Scratch_Infinity_framework.import("welcome", welcome);
+    Scratch_Infinity_framework.www(
+      "https://develop.the-infinitys.f5.si/Scratch/Infinity-tool/extension/messages-count.js"
+    );
   },
 };
 Scratch_Infinity_framework.main();
