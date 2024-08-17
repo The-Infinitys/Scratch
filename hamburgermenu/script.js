@@ -59,10 +59,10 @@ hamburgermenu.innerHTML = `
     right:0;
 }
 #navigation > div > ul > li.logo{
-  position:fixed;
-  left:0;
-  top:2px;
-  margin:0;
+  position:fixed !important;
+  left:0 !important;
+  top:2px !important;
+  margin:0 !important;
 }
 #navigation > .inner{
   display:flex;
