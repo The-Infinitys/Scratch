@@ -204,7 +204,7 @@ const Scratch_Infinity_framework = {
       <p>上の方にタブを切り替えるボタンがあると思うので、そこから使いたい機能を選んでください！</p>`;
     Scratch_Infinity_framework.import("welcome", welcome);
     Scratch_Infinity_framework.www(
-      "https://develop.the-infinitys.f5.si/Scratch/Infinity-tool/extension/messages-count.js"
+      "https://develop.the-infinitys.f5.si/Scratch/Infinity-tool/extension/scratch/messages-count.js"
     );
   },
 };
