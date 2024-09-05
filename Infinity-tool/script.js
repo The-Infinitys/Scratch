@@ -206,6 +206,9 @@ const Scratch_Infinity_framework = {
     Scratch_Infinity_framework.www(
       "https://develop.the-infinitys.f5.si/Scratch/Infinity-tool/extension/scratch/messages-count.js"
     );
+    Scratch_Infinity_framework.www(
+      "https://develop.the-infinitys.f5.si/Scratch/Infinity-tool/extension/scratch/edit-comments.js"
+    );
   },
 };
 Scratch_Infinity_framework.main();
