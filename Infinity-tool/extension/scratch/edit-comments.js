@@ -18,7 +18,7 @@ scratch_comment_emulator = {
     const sce_div = document.createElement("div");
     sce_div.className = "sce-box";
     sce_div.innerHTML = scratch_comment_emulator.elem.source.html;
-    Scratch_Infinity_framework.import(sce_div, "Scratch Comment Emulator");
+    Scratch_Infinity_framework.import("Scratch Comment Emulator", sce_div);
   },
   send_comment: (username, text, date, pos, is_reply, reply_pos) => {
     if (pos == "") {
