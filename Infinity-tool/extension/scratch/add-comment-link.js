@@ -1,4 +1,5 @@
-const link_svg = `
+const add_comment_link = () => {
+  const link_svg = `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
   <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
   <!-- Edited by The Infinity's -->
@@ -9,50 +10,64 @@ const link_svg = `
   </g>
 </svg>
 `;
-const remove_links = () => {
-  document.querySelectorAll("span.inf-link").forEach((elem) => elem.remove());
-};
-const add_link_buttons = (elems, old = false) => {
-  const copyToClip = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        console.log("copied," + text);
-      },
-      () => {
-        console.error("failed to copy");
-      }
-    );
+  const remove_links = () => {
+    document.querySelectorAll("span.inf-link").forEach((elem) => elem.remove());
   };
-  elems.forEach((elem) => {
-    const cp_bt = document.createElement("span");
-    cp_bt.innerHTML = link_svg;
-    cp_bt.addEventListener("click", () =>
-      copyToClip(window.location.href + "#" + elem.id)
-    );
-    if (old) {
-      cp_bt.className = "actions inf-link";
-      document.querySelector(`#${elem.id}>div.actions-wrap`).prepend(cp_bt);
-    } else {
-      cp_bt.className = "inf-link";
-      document
-        .querySelector(`#${elem.id}>div>div.flex-row.comment-top-row>div`)
-        .prepend(cp_bt);
-    }
-  });
+  const add_link_buttons = (elems, old = false) => {
+    const copyToClip = (text) => {
+      navigator.clipboard.writeText(text).then(
+        () => {
+          console.log("copied," + text);
+        },
+        () => {
+          console.error("failed to copy");
+        }
+      );
+    };
+    elems.forEach((elem) => {
+      const cp_bt = document.createElement("span");
+      cp_bt.innerHTML = link_svg;
+      cp_bt.addEventListener("click", () =>
+        copyToClip(window.location.href + "#" + elem.id)
+      );
+      if (old) {
+        cp_bt.className = "actions inf-link";
+        document.querySelector(`#${elem.id}>div.actions-wrap`).prepend(cp_bt);
+      } else {
+        cp_bt.className = "inf-link";
+        document
+          .querySelector(`#${elem.id}>div>div.flex-row.comment-top-row>div`)
+          .prepend(cp_bt);
+      }
+    });
+  };
+  const now_lc_url = new URL(window.location.href);
+  if (now_lc_url.pathname.startsWith("/users/")) {
+    setInterval(() => {
+      remove_links();
+      add_link_buttons(
+        document.querySelectorAll("ul.comments>li.top-level-reply>div"),
+        (old = true)
+      ); // 投稿
+      add_link_buttons(
+        document.querySelectorAll(
+          "ul.comments>li.top-level-reply>ul.replies>li.reply>div"
+        ),
+        (old = true)
+      ); // 返信
+    }, 1000);
+  } else if (
+    now_lc_url.pathname.startsWith("/projects/") ||
+    (now_lc_url.pathname.startsWith("/studios/") &&
+      now_lc_url.pathname.endsWith("/comments"))
+  ) {
+    setInterval(() => {
+      remove_links();
+      add_link_buttons(
+        document.querySelectorAll("div.flex-row.comment"),
+        (old = false)
+      );
+    }, 1000);
+  }
 };
-const now_lc_url = new URL(window.location.href);
-if (now_lc_url.pathname.startsWith("/users/")) {
-  setInterval(() => {
-    remove_links();
-    add_link_buttons(
-      document.querySelectorAll("ul.comments>li.top-level-reply>div"),
-      (old = true)
-    ); //普通の投稿
-    add_link_buttons(
-      document.querySelectorAll(
-        "ul.comments>li.top-level-reply>ul.replies>li.reply>div"
-      ),
-      (old = true)
-    );
-  }, 1000);
-}
+add_comment_link();
