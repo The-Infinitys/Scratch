@@ -25,19 +25,23 @@ const add_comment_link = () => {
       );
     };
     elems.forEach((elem) => {
-      const cp_bt = document.createElement("span");
-      cp_bt.innerHTML = link_svg;
-      cp_bt.addEventListener("click", () =>
-        copyToClip(window.location.href + "#" + elem.id)
-      );
-      if (old) {
-        cp_bt.className = "actions inf-link";
-        document.querySelector(`#${elem.id}>div.actions-wrap`).prepend(cp_bt);
-      } else {
-        cp_bt.className = "inf-link";
-        document
-          .querySelector(`#${elem.id}>div>div.flex-row.comment-top-row>div`)
-          .prepend(cp_bt);
+      if (elem.id != "") {
+        const cp_bt = document.createElement("span");
+        cp_bt.innerHTML = link_svg;
+        cp_bt.addEventListener("click", () =>
+          copyToClip(window.location.href + "#" + elem.id)
+        );
+        if (old) {
+          cp_bt.className = "actions inf-link";
+          document.querySelector(`#${elem.id}>div.actions-wrap`).prepend(cp_bt);
+        } else {
+          cp_bt.className = "inf-link";
+          document
+            .querySelector(
+              "#" + elem.id + ">div>div.flex-row.comment-top-row>div"
+            )
+            .append(cp_bt);
+        }
       }
     });
   };
