@@ -1,25 +1,12 @@
-*{
+* {
   padding: 0;
   margin: 0;
 }
-#controll{
-  width: 100%;
-  height: 20%;
-  color: white;
-  background-color: purple;
-}
 
-html, body {
-  height: 100%;
-}
-body {
-  background: rgb(255, 255, 255);
-  margin: 0;
-}
 /* 親 */
 .container {
   display: flex;
-  height: 80%;
+  height: 80vh;
   justify-content: center;
   align-items: center;
   gap: 1px;
@@ -36,9 +23,43 @@ body {
   top: 50%;
   left: 0;
 }
+
 .box {
   flex: 1;
   height: 80%;
   scale: 1 0;
-  background: #888;
+  animation: 10s rainbow-animation linear infinite;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+
+@keyframes rainbow-animation {
+  0% {
+    background-color: #f00;
+  }
+
+  17% {
+    background-color: #ff0;
+  }
+
+  33% {
+    background-color: #0f0;
+  }
+
+  50% {
+    background-color: #0ff;
+  }
+
+  67% {
+    background-color: #00f;
+  }
+
+  83% {
+    background-color: #f0f;
+  }
+
+  100% {
+    background-color: #f00;
+  }
 }

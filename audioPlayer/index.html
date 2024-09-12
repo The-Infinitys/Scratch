@@ -4,16 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>audio player on scratch</title>
-<!--     <link rel="stylesheet" href="/layout/style.css" /> -->
-<!--     <script defer src="/layout/script.js"></script> -->
-    <link rel="stylesheet" href="style.css" />
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="/layout/style.css" />
+    <script defer src="/layout/script.js"></script>
+    <link rel="stylesheet" href="./style.css" />
+    <script defer src="./script.js"></script>
   </head>
   <body>
     <section class="Title">
       <h1>Audio Analyzer for Scratch</h1>
     </section>
-    <section id="controll">
+    <section id="control">
       <input type="file" accept="audio/mp3" id="audioFile" />
       <audio src="" id="audio"></audio>
       <select id="setting_FPS" onchange="setFPS()">
@@ -32,10 +32,12 @@
         <option value="128">rate:128</option>
       </select>
       <button class="button" onclick="start()">start!</button>
-      <a id="download" href="javascript:alert('まだデータが入っていません！')">no data</a><br />
+      <a id="download" href="javascript:alert('まだデータが入っていません！')"
+        >no data</a
+      ><br />
       <a href="./how.html">how to use</a>
     </section>
-    <p class="duration"></p>
+    <p id="duration"></p>
     <h6></h6>
     <h3></h3>
     <div class="container"></div>

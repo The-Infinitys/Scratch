@@ -1,7 +1,7 @@
 const audioFile = document.querySelector("#audioFile");
-const button = document.querySelector(".button");
-const audio = document.querySelector(".audio");
-const duration = document.querySelector(".duration");
+const button = document.querySelector("#button");
+const audio = document.querySelector("#audio");
+const duration = document.querySelector("#duration");
 exportdata = [];
 //ファイルの読み込み
 audioFile.addEventListener("change", (e) => {
@@ -44,7 +44,7 @@ function exportSB3(data) {
   aTag.target = "_blank";
 }
 //音声の再生スクリプト
-list list = [];
+const list = [];
 const setting = {
   rate: document.querySelector("#setting_rate"),
   fps: document.querySelector("#setting_FPS"),
