@@ -35,11 +35,10 @@ body {
   position: absolute;
   top: 50%;
   left: 0;
-  background: #378bde;
 }
 .box {
   flex: 1;
   height: 80%;
   scale: 1 0;
-  background: rgb(0, 0, 0);
+  background: #888;
 }
