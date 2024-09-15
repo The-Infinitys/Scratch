@@ -40,6 +40,7 @@ function exportSB3(data) {
   const blob = new Blob([text], { type: "text/plain" });
   const aTag = document.querySelector("#download");
   aTag.innerHTML = "Download data";
+  aTag.setAttribute("download","export.txt");
   aTag.href = URL.createObjectURL(blob);
   aTag.target = "_blank";
 }
